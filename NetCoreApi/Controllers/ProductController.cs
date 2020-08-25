@@ -22,6 +22,18 @@ namespace NetCoreApi.Controllers
             return Products.Single(x => x.Id == id);
         }
 
+        public ActionResult Create(Product product)
+        {
+            product.Id = Products.Count() + 1;
+            Products.Add(product);
+
+            return CreatedAtAction(
+                "Get",
+                new { id = product.Id },
+                product
+                );
+        }
+
         public static List<Product> Products = new List<Product>
         {
             new Product
